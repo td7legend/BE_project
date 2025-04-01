@@ -21,7 +21,6 @@ namespace be_project.Controllers
         {
             try
             {
-                // Gọi Service để xử lý logic
                 var newUser = await _authService.AddUserAsync(userDto);
                 return Ok(newUser);
             }
@@ -30,5 +29,19 @@ namespace be_project.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            try
+            {
+                var users = await _authService.GetAllUsersAsync();
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
     }
 }

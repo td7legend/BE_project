@@ -12,5 +12,6 @@ namespace be_project.Repositories
         Task<User> GetUserByGoogleIdAsync(string googleId);
         Task<bool> EmailExistsAsync(string email);
         Task<User> GetUserByEmailAsync(string email);
+        Task<List<User>> GetAllUsersAsync();
     }
 }

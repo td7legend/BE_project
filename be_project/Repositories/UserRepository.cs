@@ -11,6 +11,11 @@ namespace be_project.Repositories
         {
             _context = context;
         }
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await _context.Users.ToListAsync();
+        }
+
         public async Task<User> GetUserByGoogleIdAsync(string googleId)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.GoogleID == googleId);

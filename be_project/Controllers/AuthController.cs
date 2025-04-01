@@ -32,12 +32,29 @@ namespace be_project.Controllers
             {
                 var tokenResponse = await _authService.GetTokenFromGoogle(code);
                 var user = await _authService.GetUserFromGoogleAsync(tokenResponse.IdToken);
-                return Ok(user);
+
+                if (user == null)
+                {
+                    return Unauthorized(new { message = "Tài khoản của bạn chưa được đăng ký trong hệ thống." });
+                }
+
+                return Ok(new
+                {
+                    id = user.Id,
+                    name = user.Name,
+                    email = user.Email,
+                    phone = user.Phone,
+                    role = user.Role,
+                    bu = user.Bu,
+                    regionId = user.RegionId,
+                    locations = user.UserLocations?.Select(ul => new { ul.LocationId }).ToList()
+                });
             }
             catch (Exception ex)
             {
-                return BadRequest($"An error occurred while processing the callback: {ex.Message}");
+                return BadRequest(new { message = $"Lỗi khi xử lý callback: {ex.Message}" });
             }
         }
+
     }
 }

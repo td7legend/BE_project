@@ -8,5 +8,6 @@ namespace be_project.Services
         Task<User> GetUserFromGoogleAsync(string idToken);
         Task<string> LoginWithGoogleAsync();
         Task<User> AddUserAsync(UserDto user);
+        Task<List<User>> GetAllUsersAsync();
     }
 }

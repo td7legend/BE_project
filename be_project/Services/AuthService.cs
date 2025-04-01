@@ -31,7 +31,7 @@ namespace be_project.Services
         public async Task<User> GetUserFromGoogleAsync(string idToken)
         {
             var payload = await VerifyGoogleToken(idToken);
-            var user = await _userRepository.GetUserByEmailAsync(payload.Subject);
+            var user = await _userRepository.GetUserByEmailAsync(payload.Email);
 
             if (user == null)
             {
@@ -103,6 +103,10 @@ namespace be_project.Services
 
             await _userRepository.AddUserAsync(newUser);
             return newUser;
+        }
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await _userRepository.GetAllUsersAsync();
         }
     }
 }
